@@ -112,13 +112,13 @@ ul.course_grid li.selected{
 }
 
 
-.dates_grid ul{
+ul.dates_grid{
   display:flex;
   flex-wrap: wrap;
   /* default ul behavior */
   padding-left: 30px;
 }
-.dates_grid ul li{
+ul.dates_grid li{
   cursor:pointer;
   list-style-type:none;
   width:60px;
@@ -133,19 +133,19 @@ ul.course_grid li.selected{
   box-sizing:border-box;
   box-shadow: 0 8px 6px -6px black;
 } 
-.dates_grid ul li.month_label{
+ul.dates_grid li.month_label{
   min-width:60px;
   width:122px;
   cursor:inherit;
 }
-.dates_grid ul li:hover:not(.month_label):not(.disabled){
+ul.dates_grid li:hover:not(.month_label):not(.disabled){
   background-color: #f0f075;
   background-color: #eabe60;
 }
-.dates_grid ul li.disabled{
+ul.dates_grid li.disabled{
   color: grey;
 }
-.dates_grid ul li.disabled::after{
+ul.dates_grid li.disabled::after{
   position:absolute;
   content: " ";
   width:59px;
@@ -154,6 +154,7 @@ ul.course_grid li.selected{
   /* margin-left: 4px; */
   /* border-radius:50px; */
   background-color: rgba(215,215,255,0.1);
+  background-color: rgba(9,9,30,0.2);
   /* opacity: .2; */
 }
 
