@@ -32,7 +32,9 @@ body{
   margin-bottom:0;
   border: 1px solid rgba(255,255,255,0.1);
 
-  padding: 20px;
+  /* TODO: make padding 20px on big devices. this is the
+   * padding for mobile devices */
+  padding: 10px;
   /* display: grid; */
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   /* grid-template-columns: repeat(3, 1fr); */
@@ -142,6 +144,10 @@ ul.dates_grid li:hover:not(.month_label):not(.disabled){
   background-color: #f0f075;
   background-color: #eabe60;
 }
+ul.dates_grid li.selected{
+  color:black;
+  background-color: #eabe60;
+}
 ul.dates_grid li.disabled{
   color: grey;
 }
@@ -164,10 +170,51 @@ ul.dates_grid li.disabled::after{
 /* ---------------------------------------- */
 
 
+.form_container{
+  display:flex;
+  justify-content:center;
+  transform: all 2s;
+}
+/* TODO: include a grid support media query */
+@media (min-width: 1100px){
+  /* TODO: put all the childs of .form_container inside a 
+   * css grid system */
+  .form_container{
+    justify-content:flex-start;
+  }
+}
+.form_box{
+  width: 350px;
+  min-height: 500px;
+  background-color: #f6a1a4;
+  background-color: #eabe60;
+  background-color: white;
+  box-shadow: 0 8px 6px -6px black;
+  color:black;
+
+  display: flex;
+  align-items:center;
+  flex-direction:column;
+  box-sizing:border-box;
+  padding:10px;
+}
+
+.form_box input{
+  padding: 10px 15px;
+  width: 240px;
+  transition:all 0.2s;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9em;
+  margin-top: 15px;
+  border: 1px solid transparent;
+  border: 1px solid rgba(0,0,0,0.6);
+}
+
+
 .form_back_panel{
- width:600px;
+ /* width:600px; */
  min-height: 350px;
- border: 1px solid pink;
+ /* border: 1px solid pink; */
 }
 
 
