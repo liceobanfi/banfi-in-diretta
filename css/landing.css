@@ -1,0 +1,173 @@
+
+@charset "UTF-8";
+
+body{
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  position:absolute;
+
+  margin:0;
+  background-color: #061e3a;
+  background-image: url("../resources/noise1.png");
+  font-family: "Roboto", sans-serif;
+  color: #f6a1a4;
+  color: white;
+  /* #06162f */
+}
+@import url(https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto);
+
+
+/* ---------------------------------------- */
+/*                 LAYOUT                   */
+/* ---------------------------------------- */
+
+
+.container {
+  max-width:1200px;
+  /* height:100%; */
+  margin: 20px auto;
+  margin-top:0;
+  margin-bottom:0;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  padding: 20px;
+  /* display: grid; */
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* grid-template-rows: repeat(5 ); */
+}
+
+.calendar_container, .form_container{
+  width:100%;
+  height:auto;
+  margin-top: 80px;
+  display:flex;
+}
+
+
+/* ---------------------------------------- */
+/*               CALENDAR                   */
+/* ---------------------------------------- */
+
+
+.calendar_container{
+  flex-direction: row-reverse;
+}
+
+
+.calendar_outer_line{
+  /* border:1px solid rgba(255,255,255,0.0); */
+  width: 800px;
+}
+
+.calendar_outer_line::before{
+  content: attr(data-year);
+  opacity:0;
+  font-size: 8em;
+  position:absolute;
+  margin-left: -320px;
+  margin-top:20px;
+  font-family: "Julius Sans One";
+  transition: all 1s;
+}
+@media (min-width: 1100px){
+  .calendar_outer_line::before{
+    opacity: .3;
+    text-shadow: 8px 12px 2px black;
+  }
+}
+
+.calendar_outer_line h2{
+  padding-left: 40px;
+  font-family: "Julius Sans One";
+}
+
+
+ul.course_grid{
+  display:flex;
+  flex-wrap: wrap;
+  padding-left:30px;
+}
+ul.course_grid li{
+  cursor: pointer;
+  padding: 10px;
+  margin:1px;
+  list-style-type: none;
+  height: 40px;
+  border:1px solid rgba(255,255,255,0.3);
+  text-align:center;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing:border-box;
+  box-shadow: 0 8px 6px -6px black;
+}
+ul.course_grid li.selected{
+  /* color: #f0f075; */
+  color:black;
+  background-color: #eabe60;
+  /* box-shadow: 0 8px 6px -6px #f0f075; */
+}
+
+
+.dates_grid ul{
+  display:flex;
+  flex-wrap: wrap;
+  /* default ul behavior */
+  padding-left: 30px;
+}
+.dates_grid ul li{
+  cursor:pointer;
+  list-style-type:none;
+  width:60px;
+  height:60px;
+  border:1px solid rgba(0,0,0,1);
+  border:1px solid rgba(255,255,255,0.3);
+  margin:1px;
+  text-align:center;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing:border-box;
+  box-shadow: 0 8px 6px -6px black;
+} 
+.dates_grid ul li.month_label{
+  min-width:60px;
+  width:122px;
+  cursor:inherit;
+}
+.dates_grid ul li:hover:not(.month_label):not(.disabled){
+  background-color: #f0f075;
+  background-color: #eabe60;
+}
+.dates_grid ul li.disabled{
+  color: grey;
+}
+.dates_grid ul li.disabled::after{
+  position:absolute;
+  content: " ";
+  width:59px;
+  height:59px;
+  /* (originalWidth - currentWidth ) /2 - borderWidth*2/2 */
+  /* margin-left: 4px; */
+  /* border-radius:50px; */
+  background-color: rgba(215,215,255,0.1);
+  /* opacity: .2; */
+}
+
+
+/* ---------------------------------------- */
+/*                   FORM                   */
+/* ---------------------------------------- */
+
+
+.form_back_panel{
+ width:600px;
+ min-height: 350px;
+ border: 1px solid pink;
+}
+
+
+
