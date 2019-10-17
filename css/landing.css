@@ -30,7 +30,7 @@ body{
   margin: 20px auto;
   margin-top:0;
   margin-bottom:0;
-  border: 1px solid rgba(255,255,255,0.1);
+  /* border: 1px solid rgba(255,255,255,0.1); */
 
   /* TODO: make padding 20px on big devices. this is the
    * padding for mobile devices */
@@ -299,3 +299,22 @@ ul.dates_grid li.disabled::after{
 }
 
 
+/* ---------------------------------------- */
+/*                   MISC                   */
+/* ---------------------------------------- */
+.noscript{
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.8);
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  z-index: 420;
+  text-align:center;
+}
+.noscript a{
+  color: pink;
+}
