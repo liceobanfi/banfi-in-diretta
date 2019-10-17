@@ -21,18 +21,11 @@ function main(){
   
   const sleep = time => new Promise( resolve => setTimeout(resolve, time))
 
-
-
-  // bt("info-item .btn", function(){
-  //   // $(".container").toggleClass("log-in");
-  //   ca(".container", "log-in")
-  // });
-
-  // $$(".info-item .btn").forEach( e =>{
-  //   e.addEventListener('click', e =>
-  //                      $(".container").classList.toggle("auth")
-  //                     )
-  // });
+  $$(".toggle-box").forEach( e =>{
+    e.addEventListener('click', e =>
+                       $(".form_outer_line").classList.toggle("mail_box_selected")
+                      )
+  });
 
 
 };

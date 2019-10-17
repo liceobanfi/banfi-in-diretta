@@ -223,6 +223,11 @@ ul.dates_grid li.disabled::after{
       padding-right:15px;
     }
 
+
+    .form_outer_line.mail_box_selected{
+      transform: translate(230px);
+    }
+
   }
 }
 
@@ -234,6 +239,7 @@ ul.dates_grid li.disabled::after{
   background-color: white;
   box-shadow: 0 8px 6px -6px black;
   color:black;
+  transition: all 0.5s;
 }
 
 .form_box, .mail_box{
@@ -251,7 +257,11 @@ ul.dates_grid li.disabled::after{
   /* visibility:hidden; */
   display:none;
 }
-.form_box{
+.form_outer_line.mail_box_selected .form_box{
+  display: none;
+}
+.form_outer_line.mail_box_selected .mail_box{
+  display: flex;
 }
 
 .form_outer_line input{
@@ -264,7 +274,7 @@ ul.dates_grid li.disabled::after{
   border: 1px solid transparent;
   border: 1px solid rgba(0,0,0,0.6);
 }
-.form_outer_line .btn, .btn{
+.btn{
   border: 1px solid rgba(0,0,0,0.6);
   cursor: pointer;
   margin-top:20px;
