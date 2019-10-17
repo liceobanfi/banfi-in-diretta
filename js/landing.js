@@ -15,18 +15,90 @@ function main(){
   const $ = document.querySelector.bind(document)
   const $$ = document.querySelectorAll.bind(document)
 
-  const ael = (s, type, callBack) => $(s).addEventListener(type, callBack)
+  // const ael = (s, type, callBack) => $(s).addEventListener(type, callBack)
+  // const bt = (s, callBack) => ael(s, 'click', callBack)
+  // const sleep = time => new Promise( resolve => setTimeout(resolve, time))
 
-  const bt = (s, callBack) => ael(s, 'click', callBack)
-  
-  const sleep = time => new Promise( resolve => setTimeout(resolve, time))
+  const selection = {
+    course: null,
+    date: null
+  }
 
+  //toggle forms
   $$(".toggle-box").forEach( e =>{
     e.addEventListener('click', e =>
-                       $(".form_outer_line").classList.toggle("mail_box_selected")
-                      )
+     $(".form_outer_line").classList.toggle("mail_box_selected")
+    )
   });
 
+  //set the default selected course as the first element in the list
+  const firstCourseElem = $("ul.course_grid>li");
+  if(firstCourseElem){
+    selection.course = firstCourseElem
+  }else{
+    console.log("no courses")
+  }
+  updateSelectionStatus()
+
+  //toggle courses
+  $("ul.course_grid").addEventListener('click', e =>{
+    const clickedElement = e.target.tagName == "LI" ? e.target : e.target.parentNode
+    if(selection.course !== clickedElement){
+      selection.course.classList.remove('selected')
+      clickedElement.classList.add('selected')
+      selection.course = clickedElement;
+
+      index = Array.from(clickedElement.parentNode.children).indexOf(clickedElement)
+      //toggle course dates
+      $("ul.dates_grid:not(.hidden)").classList.add("hidden")
+      $$("ul.dates_grid")[index].classList.remove("hidden")
+      if(selection.date){
+        selection.date.classList.remove("selected")
+        selection.date = null
+      }
+      // console.log(e, selection, index)
+      updateSelectionStatus()
+    }
+  });
+
+  //select course date
+  $$("ul.dates_grid").forEach(e =>{
+    e.addEventListener('click', e=>{
+      const clickedElement = e.target.tagName == "LI" ? e.target : e.target.parentNode
+      const badClasses = clickedElement.className == "disabled" || clickedElement.className == "month_label"
+      if(selection.date !== clickedElement && !badClasses){
+        if(selection.date){
+          selection.date.classList.remove("selected")
+        }
+        clickedElement.classList.add("selected")
+        selection.date = clickedElement
+        // console.log(selection)
+        updateSelectionStatus()
+      }
+    })
+  });
+
+  function updateSelectionStatus(){
+    let out = "nessun corso selezionato"
+    if(selection.course && selection.date){
+      const name = selection.course.firstChild.innerText
+      const number = selection.date.firstChild.innerText
+      let month = undefined
+
+      const siblings = selection.date.parentNode.children
+      index = Array.from(siblings).indexOf(selection.date)
+      for(let i= index-1; i>=0; i--){
+        if(siblings[i].className == "month_label"){
+          month = siblings[i].firstChild.innerText
+          break;
+        }
+      }
+      if(name && number && month){
+        out = `${name} - ${number} ${month}`
+      }
+    }
+    gid("selection_status").innerText = out
+  }
 
 };
 
