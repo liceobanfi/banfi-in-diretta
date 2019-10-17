@@ -41,20 +41,34 @@
       </div>
 
       <div class="form_container">
-        <div class="form_box">
-          <p>corso selezionato:<br> scienze applicate 12 ottobre</p>
-          <input name="email" placeholder="Email" type="text" />
-          <input name="cognome" placeholder="Cognome" type="text" />
-          <input name="nome" placeholder="Nome" type="text" />
-          <input name="comune" placeholder="Comune di provenienza" type="text" />
-          <input name="scuola" placeholder="Scuola di provenienza" type="text" />
-          <a class="btn">prenota</a>
-          <p>Hai gia effettuato una prenotazione? <a href="#qw">gestisci</a></p>
-        </div>
-        <div class="mail_box">
+        <!-- <div class="grid"> -->
+        <div class="form_outer_line">
+          <div class="form_box">
+            <p>corso selezionato:<br> scienze applicate 12 ottobre</p>
+            <input name="email" placeholder="Email" type="text" />
+            <input name="cognome" placeholder="Cognome" type="text" />
+            <input name="nome" placeholder="Nome" type="text" />
+            <input name="comune" placeholder="Comune di provenienza" type="text" />
+            <input name="scuola" placeholder="Scuola di provenienza" type="text" />
+            <a class="btn">prenota</a>
+            <p class="hide_in_grid">Hai gia effettuato una prenotazione? <a href="#">gestisci</a></p>
+          </div>
+          <div class="mail_box">
+            <p>inserisci la mail utilizzata per la tua precedente registrazione</p>
+            <input name="email" placeholder="Email" type="text" />
+            <a class="btn">conferma</a>
+            <p class="hide_in_grid">Vuoi aggiungere una prenotazione? <a href="#">gestisci</a></p>
+          </div>
         </div>
         <div class="form_back_panel">
-          <!-- <h1>form container</h1> -->
+          <div class="left_panel">
+            <p>Vuoi aggiungere una prenotazione?</p>
+            <a class="btn">aggiungi</a>
+          </div>
+          <div class="right_panel">
+            <p>Hai già effettuato una prenotazione?</p>
+            <a class="btn">gestisci</a>
+          </div>
         </div>
       </div>
 
