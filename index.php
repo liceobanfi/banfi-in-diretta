@@ -1,3 +1,74 @@
+<?php
+require_once 'app/classes/ConnectDb.php';
+
+$instance = ConnectDb::getInstance();
+$pdo = $instance->getConnection();
+
+
+$stmt = $pdo->query('SELECT Descrizione, Anno from `configurazione` LIMIT 1');
+/* while ($row = $stmt->fetch()) { */
+/* } */
+$row = $stmt->fetch();
+$annoCorrente = htmlspecialchars($row['Anno']);
+$descrizione = htmlspecialchars( $row['Descrizione']);
+
+//generate tables
+$mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+
+$stmt = $pdo->query('SELECT * FROM date_prenotabili order by Corso, Mese');
+$courseOut = "";
+$datesOut = "";
+$enpty = true;
+$isFirstCourse = true;
+$lastCourse = "";
+$lastMonth = 0;
+while ($row = $stmt->fetch()) {
+  //sanitize data before ijection into the DOM
+  $course = htmlspecialchars($row['Corso']);
+  $month = filter_var($row['Mese'], FILTER_VALIDATE_INT);
+  $date = filter_var($row['Data'], FILTER_VALIDATE_INT);
+  $availableDays = $row['GiorniDisponibili'];
+
+  //opening tags
+  if($enpty){
+    $enpty = false;
+    $courseOut = '<ul class="course_grid">';
+    $datesOut = '<ul class="course_grid">';
+  }
+
+  //courses
+  if($course !== $lastCourse){
+    $lastCourse = $course;
+    $selected = "";
+    if($isFirstCourse){
+      $isFirstCourse = false;
+      $selected = ' class = "selected"';
+    }
+    $courseOut .= "<li$selected><a>$course</a></li>";
+  }
+
+  //opening dates ul
+
+  //dates li
+  if($month !== $lastMonth){
+    $lastMonth = $month;
+    $monthName = $mesi[$month-1];
+    $datesOut .= "<li class=\"month_label\"><p>$monthName</p></li>";
+  }else{
+    $disabled = $datesOut > 0? "" : ' class="disabled"';
+    $datesOut .= "<li$disabled><a>$date</a></li>";
+  }
+
+  //closing dates ul
+
+}
+//closing tags
+if(!$enpty){
+  $courseOut .= "</ul>";
+  $datesOut .= "</ul>";
+}
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,16 +80,24 @@
   </head>
   <body>
     <div class="container">
+<!-- temporaneo TODO: migliorare design descrizione, e aggiungere titolo in css grid -->
+<p><?php echo($descrizione);?></p>
+      <br>
 
       <div class="calendar_container">
-        <div data-year="2019" class="calendar_outer_line">
+      <div data-year="<?php echo($annoCorrente);?>" class="calendar_outer_line">
           <h2>seleziona un corso</h2>
+          <?php echo $courseOut;?>
+<!--
           <ul class="course_grid">
             <li class="selected"><a>scientifico</a></li>
             <li><a>classico</a></li>
             <li><a>scienze applicate</a></li>
           </ul>
+-->
 
+          <?php echo $datesOut;?>
+<!--
           <ul class="dates_grid">
             <li class="month_label" ><p>novembre</p></li>
             <li><a>12</a></li>
@@ -70,6 +149,7 @@
             <li><a>3</a></li>
             <li><a>4</a></li>
           </ul>
+-->
         </div>
       </div>
 
