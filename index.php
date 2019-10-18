@@ -85,6 +85,7 @@ if(!$enpty){
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <script async type="text/javascript" src="./js/index.js" ></script>
     <link rel="stylesheet" href="./css/index.css" >
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto&display=swap" rel="stylesheet"> 
   </head>
   <body>
     <div class="container">
