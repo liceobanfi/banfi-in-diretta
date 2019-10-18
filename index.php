@@ -5,12 +5,11 @@ $instance = ConnectDb::getInstance();
 $pdo = $instance->getConnection();
 
 
-$stmt = $pdo->query('SELECT Descrizione, Anno from `configurazione` LIMIT 1');
-/* while ($row = $stmt->fetch()) { */
-/* } */
+//page configuration data
+$stmt = $pdo->query('SELECT Descrizione, Anno from `configurazione`');
 $row = $stmt->fetch();
 $annoCorrente = htmlspecialchars($row['Anno']);
-$descrizione = htmlspecialchars( $row['Descrizione']);
+$descrizione = htmlspecialchars($row['Descrizione']);
 
 //generate tables
 $mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
@@ -18,7 +17,7 @@ $mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio",
 $stmt = $pdo->query('SELECT * FROM date_prenotabili order by Corso, Mese');
 $courseOut = "";
 $datesOut = "";
-$enpty = true;
+$enpty = true;//seen the typo, too lazy to rename. used everywhere.
 $isFirstCourse = true;
 $lastCourse = "";
 $lastMonth = 0;
@@ -27,27 +26,38 @@ while ($row = $stmt->fetch()) {
   $course = htmlspecialchars($row['Corso']);
   $month = filter_var($row['Mese'], FILTER_VALIDATE_INT);
   $date = filter_var($row['Data'], FILTER_VALIDATE_INT);
-  $availableDays = $row['GiorniDisponibili'];
+  $availableDays = filter_var($row['GiorniDisponibili'], FILTER_VALIDATE_INT);
 
   //opening tags
   if($enpty){
     $enpty = false;
     $courseOut = '<ul class="course_grid">';
-    $datesOut = '<ul class="course_grid">';
+    $datesOut = '';
   }
 
   //courses
   if($course !== $lastCourse){
-    $lastCourse = $course;
+    /* $lastCourse = $course; */
     $selected = "";
     if($isFirstCourse){
-      $isFirstCourse = false;
+      /* $isFirstCourse = false; */
       $selected = ' class = "selected"';
     }
     $courseOut .= "<li$selected><a>$course</a></li>";
   }
 
   //opening dates ul
+  if($course !== $lastCourse){
+    $lastCourse = $course;
+    $hide = "";
+    if($isFirstCourse){
+      $isFirstCourse = false;
+    }else{
+      $datesOut .= "</ul>";
+      $hide = "hidden";
+    }
+    $datesOut .= "<ul class=\"dates_grid $hide\">";
+  }
 
   //dates li
   if($month !== $lastMonth){
@@ -55,11 +65,9 @@ while ($row = $stmt->fetch()) {
     $monthName = $mesi[$month-1];
     $datesOut .= "<li class=\"month_label\"><p>$monthName</p></li>";
   }else{
-    $disabled = $datesOut > 0? "" : ' class="disabled"';
+    $disabled = $availableDays > 0? "" : ' class="disabled"';
     $datesOut .= "<li$disabled><a>$date</a></li>";
   }
-
-  //closing dates ul
 
 }
 //closing tags
@@ -81,11 +89,11 @@ if(!$enpty){
   <body>
     <div class="container">
 <!-- temporaneo TODO: migliorare design descrizione, e aggiungere titolo in css grid -->
-<p><?php echo($descrizione);?></p>
+<p><?php echo $descrizione;?></p>
       <br>
 
       <div class="calendar_container">
-      <div data-year="<?php echo($annoCorrente);?>" class="calendar_outer_line">
+        <div data-year="<?php echo($annoCorrente);?>" class="calendar_outer_line">
           <h2>seleziona un corso</h2>
           <?php echo $courseOut;?>
 <!--
