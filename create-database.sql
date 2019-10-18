@@ -12,11 +12,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dump della struttura del database banfiindiretta_db
 CREATE DATABASE IF NOT EXISTS `banfi_in_diretta_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `banfi_in_diretta_db`;
 
--- Dump della struttura di tabella banfiindiretta_db.banfiindiretta_iscrizione_tbl
 CREATE TABLE IF NOT EXISTS `prenotazioni` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Mail` varchar(255) NOT NULL,
@@ -26,6 +24,9 @@ CREATE TABLE IF NOT EXISTS `prenotazioni` (
   `Scuola` varchar(255) NOT NULL,
   `Telefono` varchar(255) NOT NULL,
   `DataID` int(11) NOT NULL,
+  `Ip` varchar(255),
+  `Timestamp` int(11),
+  `Useragent` varchar(255),
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=latin1;
 
@@ -45,10 +46,15 @@ CREATE TABLE IF NOT EXISTS `configurazione` (
   `Anno` int(11)
   );
 
+
+
+------------------
+-- dati di demo --
+------------------
+
 INSERT INTO `configurazione` (Descrizione, Anno) VALUES
 (
-  "Descrizione breve, con informazioni essenziali quali ad esempio l'orario dei corsi.
-  questo testo sarà configurabile nel pannello di controllo",
+  "Descrizione breve, con informazioni essenziali quali ad esempio l'orario dei corsi. Questo testo sarà configurabile nel pannello di controllo",
   2019
 );
 
