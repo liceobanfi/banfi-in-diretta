@@ -78,11 +78,7 @@ function main(){
     })
   });
 
-  function updateSelectionStatus(){
-    let out = "nessun corso selezionato"
-    if(selection.course && selection.date){
-      const name = selection.course.firstChild.innerText
-      const number = selection.date.firstChild.innerText
+  function getmonth(){
       let month = undefined
 
       const siblings = selection.date.parentNode.children
@@ -93,12 +89,80 @@ function main(){
           break;
         }
       }
+      return month;
+  }
+  function updateSelectionStatus(){
+    let out = "nessun corso selezionato"
+    if(selection.course && selection.date){
+      const name = selection.course.firstChild.innerText
+      const number = selection.date.firstChild.innerText
+      const month = getmonth();
       if(name && number && month){
         out = `${name} - ${number} ${month}`
       }
     }
     gid("selection_status").innerText = out
   }
+
+
+  function post(path, params, method='post') {
+  // The rest of this code assumes you are not using a library.
+  // It can be made less wordy if you use one.
+  const form = document.createElement('form');
+  form.method = method;
+  form.action = path;
+
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      const hiddenField = document.createElement('input');
+      hiddenField.type = 'hidden';
+      hiddenField.name = key;
+      hiddenField.value = params[key];
+
+      form.appendChild(hiddenField);
+    }
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
+  //send form button
+  gid("js_prenota_btn").addEventListener('click', e =>{
+    //molto bello
+    let inputNames = [
+      "email",
+      "cognome",
+      "nome",
+      "comune",
+      "scuola"
+    ];
+    const formValid = inputNames.every(e => $(".form_box input[name="+e+"]").value.length > 0)
+
+    if(!formValid){
+      alert("completare tutti i campi")
+    }else if(!selection.course || !selection.date){
+      alert("selezionare una data");
+    }else{
+      const name = selection.course.firstChild.innerText
+      const number = selection.date.firstChild.innerText
+      const month = getmonth();
+      let data = {
+        name: name,
+        number: number,
+        month: month
+      }
+
+      inputNames.forEach(e =>{
+       let val =  $(".form_box input[name="+e+"]").value
+       data[e] = val
+      });
+
+      post('form.php', data)
+    }
+
+
+  });
 
 };
 

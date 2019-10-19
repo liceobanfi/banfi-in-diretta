@@ -12,8 +12,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
-CREATE DATABASE IF NOT EXISTS `banfi_in_diretta_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `banfi_in_diretta_db`;
+CREATE DATABASE IF NOT EXISTS `banfi3_in_diretta_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `banfi3_in_diretta_db`;
 
 CREATE TABLE IF NOT EXISTS `prenotazioni` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `configurazione` (
 
 
 
-------------------
+-- ----------------
 -- dati di demo --
-------------------
+-- ----------------
 
 INSERT INTO `configurazione` (Descrizione, Anno) VALUES
 (

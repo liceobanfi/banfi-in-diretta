@@ -9,12 +9,12 @@ $pdo = $instance->getConnection();
 $stmt = $pdo->query('SELECT Descrizione, Anno from `configurazione`');
 $row = $stmt->fetch();
 $annoCorrente = htmlspecialchars($row['Anno']);
-$descrizione = htmlspecialchars($row['Descrizione']);
+$descrizione = htmlspecialchars($row['Descrizione'], ENT_IGNORE);
 
 //generate tables
 $mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
 
-$stmt = $pdo->query('SELECT * FROM date_prenotabili order by Corso, Mese');
+$stmt = $pdo->query('SELECT * FROM date_prenotabili order by Corso, Mese, Data');
 $courseOut = "";
 $datesOut = "";
 $enpty = true;//seen the typo, too lazy to rename. used everywhere.
@@ -64,9 +64,9 @@ while ($row = $stmt->fetch()) {
     $lastMonth = $month;
     $monthName = $mesi[$month-1];
     $datesOut .= "<li class=\"month_label\"><p>$monthName</p></li>";
-  }else{
+  }else {
     $disabled = $availableDays > 0? "" : ' class="disabled"';
-    $datesOut .= "<li$disabled><a>$date</a></li>";
+    $datesOut .= "<li><a>$date</a></li>";
   }
 
 }
@@ -172,13 +172,13 @@ if(!$enpty){
             <input name="nome" placeholder="Nome" type="text" />
             <input name="comune" placeholder="Comune di provenienza" type="text" />
             <input name="scuola" placeholder="Scuola di provenienza" type="text" />
-            <a class="btn">prenota</a>
+            <a class="btn" id="js_prenota_btn" >prenota</a>
             <p class="hide_in_grid">Hai gia effettuato una prenotazione? <a class="action toggle-box" >gestisci</a></p>
           </div>
           <div class="mail_box">
             <p>inserisci la mail utilizzata per la tua precedente registrazione</p>
             <input name="email" placeholder="Email" type="text" />
-            <a class="btn">conferma</a>
+            <a class="btn" id="js_conferm_btn">conferma</a>
             <p class="hide_in_grid">Vuoi aggiungere una prenotazione? <a class="action toggle-box" >aggiungi</a></p>
           </div>
         </div>
