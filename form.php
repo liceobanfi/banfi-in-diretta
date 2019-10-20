@@ -77,9 +77,10 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])){
 }
 $timestamp = time();
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
-//generate uid secret
-$bytes = random_bytes(9);
-$secret = "BNF" . base64_encode($bytes);
+//TODO: create a dedicated db table that associates mail to uid
+//check if the user mail is in that table, if its not, add it with an associated uid
+/* $bytes = random_bytes(9); */
+/* $secret = "BNF" . base64_encode($bytes); */
 
 $stmt = $pdo->prepare(
   'INSERT INTO prenotazioni
