@@ -42,14 +42,17 @@ function main(){
 
   //toggle courses
   $("ul.course_grid").addEventListener('click', e =>{
-    const clickedElement = e.target.tagName == "LI" ? e.target : e.target.parentNode
-    if(selection.course !== clickedElement && clickedElement.tagName == "LI"){
-      selection.course.classList.remove('selected')
-      clickedElement.classList.add('selected')
-      selection.course = clickedElement;
+    //the clicked li element in the grid
+    let clickedLI = e.target.tagName == "LI" ? e.target : e.target.parentNode
+    if(clickedLI.tagName !== "LI") clickedLI = false;
 
-      index = Array.from(clickedElement.parentNode.children).indexOf(clickedElement)
-      //toggle course dates
+    if(clickedLI && selection.course !== clickedLI){
+      selection.course.classList.remove('selected')
+      clickedLI.classList.add('selected')
+      selection.course = clickedLI;
+
+      index = Array.from(clickedLI.parentNode.children).indexOf(clickedLI)
+      //toggle corresponding course calendar
       $("ul.dates_grid:not(.hidden)").classList.add("hidden")
       $$("ul.dates_grid")[index].classList.remove("hidden")
       if(selection.date){
@@ -64,39 +67,43 @@ function main(){
   //select course date
   $$("ul.dates_grid").forEach(e =>{
     e.addEventListener('click', e=>{
-      const clickedElement = e.target.tagName == "LI" ? e.target : e.target.parentNode
-      const badClasses = clickedElement.className == "disabled" || clickedElement.className == "month_label"
-      if(selection.date !== clickedElement && !badClasses && clickedElement.tagName == "LI"){
+      //the clicked li element in the grid
+      let clickedLI = e.target.tagName == "LI" ? e.target : e.target.parentNode
+      if(clickedLI.tagName !== "LI") clickedLI = false;
+
+      const badClasses = clickedLI.className == "disabled" || clickedLI.className == "month_label"
+
+      if(clickedLI && selection.date !== clickedLI && !badClasses ){
         if(selection.date){
           selection.date.classList.remove("selected")
         }
-        clickedElement.classList.add("selected")
-        selection.date = clickedElement
-        // console.log(selection)
+        clickedLI.classList.add("selected")
+        selection.date = clickedLI
+
         updateSelectionStatus()
       }
     })
   });
 
-  function getmonth(){
-      let month = undefined
+  // function getmonth(){
+  //     let month = undefined
 
-      const siblings = selection.date.parentNode.children
-      index = Array.from(siblings).indexOf(selection.date)
-      for(let i= index-1; i>=0; i--){
-        if(siblings[i].className == "month_label"){
-          month = siblings[i].firstChild.innerText
-          break;
-        }
-      }
-      return month;
-  }
+  //     const siblings = selection.date.parentNode.children
+  //     const index = Array.from(siblings).indexOf(selection.date)
+  //     for(let i= index-1; i>=0; i--){
+  //       if(siblings[i].className == "month_label"){
+  //         month = siblings[i].firstChild.innerText
+  //         break;
+  //       }
+  //     }
+  //     return month;
+  // }
   function updateSelectionStatus(){
     let out = "nessun corso selezionato"
     if(selection.course && selection.date){
       const name = selection.course.firstChild.innerText
       const number = selection.date.firstChild.innerText
-      const month = getmonth();
+      const month = selection.date.dataset.month
       if(name && number && month){
         out = `${name} - ${number} ${month}`
       }
@@ -146,7 +153,7 @@ function main(){
     }else{
       const name = selection.course.firstChild.innerText
       const number = selection.date.firstChild.innerText
-      const month = getmonth();
+      const month = selection.date.dataset.month
       let data = {
         name: name,
         number: number,
@@ -165,65 +172,3 @@ function main(){
   });
 
 };
-
-/*
-let colors = [
-  "#FBEC6B",
-  "#F4BC6B",
-  "#EB8B6B",
-  "#E0536B",
-  "#D6306D",
-  "#A32C68",
-  "#722A65",
-  "#422662",
-  "#12255D",
-  "#275B75",
-  "#3C918B",
-  "#52C6A2",
-  "#66F8B6"
-]
-
-let c1 = [
- "#D6306D",
- "#BD2E6B",
- "#A52D69",
- "#8C2B68",
- "#732966",
- "#5B2864",
- "#422662"
-]
-
-let c2 = [
- "#422662",
- "#3E2F65",
- "#393868",
- "#35416C",
- "#30496F",
- "#2C5272",
- "#275B75"
-]
-
-let c3 = [
- "#275B75",
- "#2E6D7D",
- "#357F84",
- "#3D918C",
- "#44A293",
- "#4BB49B",
- "#52C6A2"
-]
-
-let out = [...c1,...c2,...c3].reduce( (a,c,i) => `${a}\n
-.dates_grid ul li:nth-child(${i}){
-  background-color: ${c};
-}`, "")
-
-
-
-out = [...c1,...c2,...c3].reduce( (a,c,i) => `${a}\n
-.dates_grid ul li:hover:not(.month_label):not(.disabled):nth-child(${i}){
-  background-color: ${c};
-}`, "")
-console.log(out)
-
-*/

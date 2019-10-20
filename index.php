@@ -60,13 +60,15 @@ while ($row = $stmt->fetch()) {
   }
 
   //dates li
+  //month
   if($month !== $lastMonth){
     $lastMonth = $month;
     $monthName = $mesi[$month-1];
     $datesOut .= "<li class=\"month_label\"><p>$monthName</p></li>";
-  }else {
-    $disabled = $availableDays > 0? "" : ' class="disabled"';
-    $datesOut .= "<li><a>$date</a></li>";
+  }
+  //number
+  if($availableDays > 0){
+    $datesOut .= "<li data-month=\"$monthName\"><a>$date</a></li>";
   }
 
 }
@@ -108,7 +110,7 @@ if(!$enpty){
           <?php echo $datesOut;?>
 <!--
           <ul class="dates_grid">
-            <li class="month_label" ><p>novembre</p></li>
+            <li data-month="0" class="month_label" ><p>novembre</p></li>
             <li><a>12</a></li>
             <li><a>13</a></li>
             <li class="disabled"><a>14</a></li>
