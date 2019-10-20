@@ -101,11 +101,11 @@ function main(){
   function updateSelectionStatus(){
     let out = "nessun corso selezionato"
     if(selection.course && selection.date){
-      const name = selection.course.firstChild.innerText
+      const course = selection.course.firstChild.innerText
       const number = selection.date.firstChild.innerText
       const month = selection.date.dataset.month
-      if(name && number && month){
-        out = `${name} - ${number} ${month}`
+      if(course && number && month){
+        out = `${course} - ${number} ${month}`
       }
     }
     gid("selection_status").innerText = out
@@ -158,11 +158,11 @@ function main(){
     }else if(!selection.course || !selection.date){
       alert("selezionare una data");
     }else{
-      const name = selection.course.firstChild.innerText
+      const course = selection.course.firstChild.innerText
       const number = selection.date.firstChild.innerText
       const month = selection.date.dataset.month
       let data = {
-        name: name,
+        course: course,
         number: number,
         month: month
       }

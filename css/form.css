@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+body{
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  position:absolute;
+
+  margin:0;
+  background-color: #061e3a;
+  background-image: url("../resources/noise1.png");
+  font-family: "Roboto", sans-serif;
+  color: #f6a1a4;
+  color: white;
+  /* #06162f */
+}
+
+h1{
+  padding-left: 40px;
+  font-family: "Julius Sans One";
+}
+a{
+  color: white;
+  text-decoration:none;
+  border-bottom: 2px solid #eabe60;
+}
