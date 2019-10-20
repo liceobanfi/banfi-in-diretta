@@ -113,26 +113,30 @@ function main(){
 
 
   function post(path, params, method='post') {
-  // The rest of this code assumes you are not using a library.
-  // It can be made less wordy if you use one.
-  const form = document.createElement('form');
-  form.method = method;
-  form.action = path;
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    const form = document.createElement('form');
+    form.method = method;
+    form.action = path;
 
-  for (const key in params) {
-    if (params.hasOwnProperty(key)) {
-      const hiddenField = document.createElement('input');
-      hiddenField.type = 'hidden';
-      hiddenField.name = key;
-      hiddenField.value = params[key];
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = key;
+        hiddenField.value = params[key];
 
-      form.appendChild(hiddenField);
+        form.appendChild(hiddenField);
+      }
     }
+    document.body.appendChild(form);
+    form.submit();
   }
 
-  document.body.appendChild(form);
-  form.submit();
-}
+  function isMail(mail){
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(mail).toLowerCase());
+  }
 
   //send form button
   gid("js_prenota_btn").addEventListener('click', e =>{
@@ -145,9 +149,12 @@ function main(){
       "scuola"
     ];
     const formValid = inputNames.every(e => $(".form_box input[name="+e+"]").value.length > 0)
+    const mailValid = isMail($(".form_box input[name=email]").value)
 
     if(!formValid){
       alert("completare tutti i campi")
+    }else if(!mailValid){
+      alert("indirizzo email non valido")
     }else if(!selection.course || !selection.date){
       alert("selezionare una data");
     }else{
@@ -164,11 +171,23 @@ function main(){
        let val =  $(".form_box input[name="+e+"]").value
        data[e] = val
       });
-
       post('form.php', data)
     }
 
+  });
+  
+
+  //send mail button
+  gid("js_conferm_btn").addEventListener('click', e =>{
+    const mailValid = isMail($(".mail_box input[name=email]").value)
+    if(!mailValid){
+      alert("inserisci una mail valida")
+    }else{
+      let email = $(".mail_box input[name=email]").value
+      post('manage.php', {email})
+    }
 
   });
+
 
 };
