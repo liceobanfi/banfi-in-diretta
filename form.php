@@ -84,7 +84,7 @@ $secret = "BNF" . base64_encode($bytes);
 $stmt = $pdo->prepare(
   'INSERT INTO prenotazioni
  (Mail, Nome, Cognome, Comune, Scuola, Telefono, DataID, Ip, Timestamp, Useragent) VALUES
- (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+ (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 );
 $success = $stmt->execute( [
   $_POST['email'],
@@ -96,8 +96,7 @@ $success = $stmt->execute( [
   $dateID,
   $ip,
   $timestamp,
-  $userAgent,
-  $secret
+  $userAgent
 ]);
 if(!$success){
   header("Location: index.php?message=registration-failed");
@@ -118,8 +117,17 @@ $stmt->execute( [
 $affectedRows = $stmt->rowCount();
 if($affectedRows !== 1){
   $error = "available-days-decrement-error";
-  echo $error;
 }
+
+
+$stmt = $pdo->query('SELECT MessaggioRegistrazioneCompletata from `configurazione`');
+$row = $stmt->fetch();
+$msg = $row['MessaggioRegistrazioneCompletata'];
+
+$infoCorso = htmlspecialchars($_POST['course']);
+$numero = $_POST['number'];
+$mese = $_POST['month'];
+$infoCorso .= " il giorno $numero $mese";
 
 ?>
 <!DOCTYPE html>
@@ -135,8 +143,9 @@ if($affectedRows !== 1){
   <body>
     <div class="container">
       <h1>registrazione completata</h1>
-      <div>
-        <p>qw ewqoj ewoqijeoqwej ewqoiej ewqqwe ewjiqoejqwo</p>
+      <p><?php echo $msg;?></p>
+      <div class="info_corso">
+      <p>Il tuo corso: <?php echo $infoCorso ?></p>
       </div>
       <a href="index.php">indietro</a>
       <a href="">homepage</a>

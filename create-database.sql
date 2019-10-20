@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `date_prenotabili` (
 
 CREATE TABLE IF NOT EXISTS `configurazione` (
   `Descrizione` varchar(800),
+  `MessaggioRegistrazioneCompletata` varchar(800),
   `Anno` int(11)
   );
 
@@ -52,8 +53,9 @@ CREATE TABLE IF NOT EXISTS `configurazione` (
 -- dati di demo --
 -- ----------------
 
-INSERT INTO `configurazione` (Descrizione, Anno) VALUES
+INSERT INTO `configurazione` (MessaggioRegistrazioneCompletata, Descrizione, Anno) VALUES
 (
+  "Ti aspettiamo alle 8:20 presso la nostra sede in via ---. L'attivita avrà un durata di 3 ore",
   "Descrizione breve, con informazioni essenziali quali ad esempio l'orario dei corsi. Questo testo sarà configurabile nel pannello di controllo",
   2019
 );
