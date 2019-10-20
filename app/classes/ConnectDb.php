@@ -28,7 +28,7 @@ class ConnectDb {
       PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
       PDO::ATTR_EMULATE_PREPARES   => false,
-      /* PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'" */
+      PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
     ];
     try {
       $this->conn = new PDO($dsn, $config['dbUsername'], $config['dbPassword'], $options);
