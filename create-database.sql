@@ -45,7 +45,14 @@ CREATE TABLE IF NOT EXISTS `configurazione` (
   `Descrizione` varchar(800),
   `MessaggioRegistrazioneCompletata` varchar(800),
   `Anno` int(11)
-  );
+) DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `Mail` varchar(255) NOT NULL,
+  `Secret` varchar(255) NOT NULL,
+  PRIMARY KEY (`Mail`)
+) DEFAULT CHARSET=latin1;
 
 
 

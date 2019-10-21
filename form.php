@@ -1,5 +1,6 @@
 <?php
 require_once 'app/classes/ConnectDb.php';
+require_once 'app/classes/Mailer.php';
 
 //validates received output, and die if something fails
 $error = "";
@@ -9,6 +10,10 @@ foreach($expectedParams as $param){
   if(!isset($_POST[$param]) || strlen($_POST[$param]) > 60 ){
     $error .= " invalidPOST " . $param;
   }
+}
+
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+  $error .= "invalidMail ";
 }
 
 if($error) {
@@ -77,10 +82,6 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])){
 }
 $timestamp = time();
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
-//TODO: create a dedicated db table that associates mail to uid
-//check if the user mail is in that table, if its not, add it with an associated uid
-/* $bytes = random_bytes(9); */
-/* $secret = "BNF" . base64_encode($bytes); */
 
 $stmt = $pdo->prepare(
   'INSERT INTO prenotazioni
@@ -102,6 +103,30 @@ $success = $stmt->execute( [
 if(!$success){
   header("Location: index.php?message=registration-failed");
   die();
+}
+
+//check if the user mail is in the accounts table, if its not, add it with an associated secret
+$stmt = $pdo->prepare( 'SELECT * FROM accounts WHERE Mail = :mail');
+$stmt->execute(['mail'=> $_POST['email'] ]);
+$result = $stmt->rowCount();
+if($result){
+  //get secret
+  $row = $stmt->fetch();
+  $secret = $row['Secret'];
+}else{
+  //create secret, create db record
+  $bytes = random_bytes(9);
+  $secret = "BNF" . base64_encode($bytes);
+
+  $stmt = $pdo->prepare( 'INSERT INTO accounts (Mail, Secret) VALUES (:mail, :secret)');
+  $stmt->execute([
+    'mail'=> $_POST['email'],
+    'secret'=> $secret
+  ]);
+  $affectedRows = $stmt->rowCount();
+  if($affectedRows !== 1){
+    $error = "account-creation-error";
+  }
 }
 
 
@@ -130,6 +155,15 @@ $numero = $_POST['number'];
 $mese = $_POST['month'];
 $infoCorso .= " il giorno $numero $mese";
 
+//send the confirmation email
+$mailData = [
+  'secret' => $secret,
+  'corso' => $_POST['course'],
+  'numero' => $numero,
+  'mese' => $mese
+];
+$mailer = Mailer::getInstance();
+$mailer->sendTemplate($_POST['email'], 'REGISTRATION_SUCCESS', $mailData);
 ?>
 <!DOCTYPE html>
 <html>
