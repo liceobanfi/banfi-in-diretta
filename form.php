@@ -162,8 +162,7 @@ $mailData = [
   'numero' => $numero,
   'mese' => $mese
 ];
-$mailer = Mailer::getInstance();
-$mailer->sendTemplate($_POST['email'], 'REGISTRATION_SUCCESS', $mailData);
+sendTemplate($_POST['email'], 'REGISTRATION_SUCCESS', $mailData);
 ?>
 <!DOCTYPE html>
 <html>
