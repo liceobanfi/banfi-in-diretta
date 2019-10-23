@@ -40,7 +40,9 @@ function main(){
     let parent = e.target.parentNode
     let id = parent.querySelector('.btn.invisible').dataset.id
     parent.innerHTML = "<a>attendere..</a>"
-    post("", {deleteid: id})
+    let url = new URL(window.location.href);
+    let secret = url.searchParams.get("id");
+    post("prenotazioni_formhandler.php", {secret:secret, deleteid: id})
     // alert(id)
   }
 
