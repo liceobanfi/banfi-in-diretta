@@ -163,6 +163,9 @@ $mailData = [
   'mese' => $mese
 ];
 sendTemplate($_POST['email'], 'REGISTRATION_SUCCESS', $mailData);
+
+//TODO: remove this html completely, and redirect to index even on success
+//remove js and css files related to this page
 ?>
 <!DOCTYPE html>
 <html>
