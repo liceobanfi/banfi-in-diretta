@@ -19,7 +19,7 @@ return array(
   'smtpUsername' => '',
   'smtpPassword' => '',
   //MISC CONFIGURATION
-  'websitePath' => 'localhost/liceo_banfi/openday/',
+  'websitePath' => 'http://localhost/liceo_banfi/openday/',
   //ADMIN CONFIGURATION
   //default id: 'admin' - bcrypt hash
   //generate your own hash with the utility page in tests/password-hash.php?password=YOURPASSWORD
