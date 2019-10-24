@@ -23,6 +23,19 @@ if(isset($_POST['deleteid']) && filter_var($_POST['deleteid'], FILTER_VALIDATE_I
   ]);
 
   $affectedRows = $stmt->rowCount();
+
+  //decrement the available places
+  if($affectedRows > 0){
+    $stmt = $pdo->prepare(
+      'UPDATE date_prenotabili SET GiorniDisponibili = GiorniDisponibili + 1 
+      WHERE ID = ?'
+    );
+    $stmt->execute( [$_POST['deleteid']]);
+    $affectedRows = $stmt->rowCount();
+    if($affectedRows !== 1){
+      $error = "available-days-decrement-error";
+    }
+  }
   /* echo $affectedRows; */
 }
 

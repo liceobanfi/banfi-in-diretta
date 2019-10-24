@@ -146,10 +146,6 @@ if($affectedRows !== 1){
 }
 
 
-$stmt = $pdo->query('SELECT MessaggioRegistrazioneCompletata from `configurazione`');
-$row = $stmt->fetch();
-$msg = $row['MessaggioRegistrazioneCompletata'];
-
 $infoCorso = htmlspecialchars($_POST['course']);
 $numero = $_POST['number'];
 $mese = $_POST['month'];
