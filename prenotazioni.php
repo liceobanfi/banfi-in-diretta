@@ -12,21 +12,6 @@ if(!isset($_GET['id']) || strlen($_GET['id']) > 60){
   $instance = ConnectDb::getInstance();
   $pdo = $instance->getConnection();
 
-
-  //delete a reservation id, if requested
-  if(isset($_POST['deleteid']) && filter_var($_POST['deleteid'], FILTER_VALIDATE_INT)){
-    $stmt = $pdo->prepare('
-      DELETE from prenotazioni WHERE DataID = ? AND Mail =
-      (SELECT Mail FROM accounts WHERE Secret = ?)
-    ');
-    $stmt->execute([
-      $_POST['deleteid'],
-      $secret
-    ]);
-    $affectedRows = $stmt->rowCount();
-    /* echo $affectedRows; */
-  }
-
   //get the courses
   $stmt = $pdo->prepare(
     'SELECT d.ID, d.Corso, d.Mese, d.Data, p.Mail
@@ -52,6 +37,10 @@ if(!isset($_GET['id']) || strlen($_GET['id']) > 60){
   }
   $table .= "</table>";
 
+  
+  $config = require dirname(__FILE__).'/app/config/config.php';
+  $homepage = $config['parentWebsite'];
+
 }
 ?>
 <!DOCTYPE html>
@@ -71,8 +60,8 @@ if(!isset($_GET['id']) || strlen($_GET['id']) > 60){
       <h2>pagina non trovata</h2>
       <p>nessuna registrazione trovata per questo id</p>
       <div class="bottom-container">
-        <a class="btn">aggiungi una prenotazione</a>
-        <a href="index.php" class="link" >homepage</a>
+        <a href="index.php" class="btn">aggiungi una prenotazione</a>
+        <a href="<?php echo $homepage; ?>" class="link" >homepage</a>
       </div>
       <?php else: ?>
       <h2>prenotazioni effettuate: </h2>
@@ -93,8 +82,8 @@ if(!isset($_GET['id']) || strlen($_GET['id']) > 60){
 
       <?php echo $table; ?>
       <div class="bottom-container">
-        <a class="btn">aggiungi</a>
-        <a href="index.php" class="link" >homepage</a>
+        <a href="index.php" class="btn">aggiungi</a>
+        <a href="<?php echo $homepage; ?>" class="link" >homepage</a>
         <a>mail associata: <?php echo $mail ?></a>
       </div>
       

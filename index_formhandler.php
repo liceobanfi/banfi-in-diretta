@@ -164,29 +164,5 @@ $mailData = [
 ];
 sendTemplate($_POST['email'], 'REGISTRATION_SUCCESS', $mailData);
 
-//TODO: remove this html completely, and redirect to index even on success
-//remove js and css files related to this page
-?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>prenotazione open day liceo banfi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-    <script async type="text/javascript" src="./js/form.js" ></script>
-    <link rel="stylesheet" href="./css/form.css" >
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto&display=swap" rel="stylesheet"> 
-  </head>
-  <body>
-    <div class="container">
-      <h1>registrazione completata</h1>
-      <p><?php echo $msg;?></p>
-      <div class="info_corso">
-      <p>Il tuo corso: <?php echo $infoCorso ?></p>
-      </div>
-      <a href="index.php">indietro</a>
-      <a href="">homepage</a>
-
-    </div>
-  </body>
-</html>
+header("Location: index.php?message=success&dateid=$dateID");
+die();

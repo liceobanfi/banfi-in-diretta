@@ -21,7 +21,7 @@ function sendTemplate($mail, $template, $data){
   $mailBody = " test ";
   switch ($template){
   case 'REGISTRATION_SUCCESS':
-    $url = $config['websitePath'] . "prenotazioni.php?id=" . $data['secret'];
+    $url = $config['appPath'] . "prenotazioni.php?id=" . $data['secret'];
     $mailBody =
 <<<HTML
 <h2>registrazione avvenuta con successo</h2>
@@ -33,7 +33,7 @@ il corso {$data['corso']}</p>
 <p>liceo banfi, etch etch</p>
 HTML;
   case 'ACCOUNT_URL':
-    $url = $config['websitePath'] . "prenotazioni.php?id=" . $data['secret'];
+    $url = $config['appPath'] . "prenotazioni.php?id=" . $data['secret'];
     $mailBody =
 <<<HTML
 <h2>gestione prenotazioni</h2>

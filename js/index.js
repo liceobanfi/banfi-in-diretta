@@ -31,6 +31,24 @@ function main(){
     )
   });
 
+  //hande modal error
+  let url = new URL(window.location.href);
+  let message = url.searchParams.get("message");
+  if(message){
+    if(message == 'success'){
+    }else{
+      $('.error_modal').classList.add('visible');
+    }
+    //remove the get params from the url
+    setTimeout(e => history.pushState({}, "", "index.php"), 6000);
+  }
+
+  //close modal error
+  $('.error_modal .close').addEventListener('click', e=>
+      e.target.parentNode.classList.remove('visible')
+    );
+
+
   //set the default selected course as the first element in the list
   const firstCourseElem = $("ul.course_grid>li");
   if(firstCourseElem){
@@ -171,7 +189,7 @@ function main(){
        let val =  $(".form_box input[name="+e+"]").value
        data[e] = val
       });
-      post('form.php', data)
+      post('index_formhandler.php', data)
     }
 
   });
@@ -184,7 +202,7 @@ function main(){
       alert("inserisci una mail valida")
     }else{
       let email = $(".mail_box input[name=email]").value
-      post('manage.php', {email})
+      post('gestionemail.php', {email})
     }
 
   });
