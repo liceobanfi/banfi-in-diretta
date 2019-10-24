@@ -36,17 +36,25 @@ function main(){
   let message = url.searchParams.get("message");
   if(message){
     if(message == 'success'){
+      $('.success_modal').classList.add('visible');
     }else{
       $('.error_modal').classList.add('visible');
+      setTimeout(e => history.pushState({}, "", "index.php"), 6000);
     }
     //remove the get params from the url
-    setTimeout(e => history.pushState({}, "", "index.php"), 6000);
   }
 
-  //close modal error
+  //close error modal
   $('.error_modal .close').addEventListener('click', e=>
       e.target.parentNode.classList.remove('visible')
     );
+  //close success modal
+  $('.success_modal .close_btn').addEventListener('click', e=>{
+      $('.success_modal').classList.remove('visible')
+      history.pushState({}, "", "index.php")
+    });
+
+
 
 
   //set the default selected course as the first element in the list

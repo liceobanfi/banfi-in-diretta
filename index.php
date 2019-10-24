@@ -248,12 +248,17 @@ if(!$enpty){
     </div>
 
     <div class="success_modal">
-      <h2>prenotazione avvenuta con successo</h2>
-      <p><?php echo $msg; ?></p>
-      <h3>la tua prenotazione:</h3>
-      <?php echo $formSuccess; ?>
-      <p>Per modificare o visualizzare tutte le prenotazioni effettuate, visita il link che è stato inviato al tuo indirizzo email.
-      Se non hai ricevuto niente, controlla la cartella di spam e tieni a mente che la mail potrebbe impiegare alcuni minuti ad arrivare.</p>
+      <div class="modal_container">
+        <div class="close_btn_wrapper">
+          <a class="close_btn">X</a>
+        </div>
+        <h2>prenotazione avvenuta con successo</h2>
+        <p><?php echo $msg; ?></p>
+        <h3>la tua prenotazione:</h3>
+        <?php echo $formSuccess; ?>
+        <p>Per modificare o visualizzare tutte le prenotazioni effettuate, visita il link che è stato inviato al tuo indirizzo email.
+        Se non hai ricevuto niente, controlla la cartella di spam e tieni a mente che la mail potrebbe impiegare alcuni minuti ad arrivare.</p>
+      </div>
     </div>
 
     <noscript>

@@ -324,7 +324,7 @@ ul.dates_grid li.disabled::after{
 .error_modal.visible{
   display:flex;
   -webkit-animation-name: fadein; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 6s; /* Safari 4.0 - 8.0 */
   -webkit-animation-fill-mode: forwards;
   animation-name: fadein;
   animation-duration: 6s;
@@ -362,6 +362,65 @@ ul.dates_grid li.disabled::after{
   .error_modal{
     width: 400px;
   }
+}
+
+.success_modal{
+  z-index: 420;
+  width:0;
+  height:0;
+  position:absolute;
+  top:0;
+  left:0;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  background-color: rgba(0,0,9,0.8);
+  opacity:0;
+}
+.success_modal.visible{
+  width:100%;
+  height: 100%;
+  display:flex;
+  opacity:1;
+}
+.success_modal .close_btn_wrapper{
+  height: 10px;
+}
+.success_modal .close_btn{
+  width: 25px;
+  height:25px;
+  position:relative;
+  top:-25px;
+  font-family: "Julius Sans One";
+  font-size: 1.8em;
+  padding: 10px;
+  display:flex;
+  justify-content:center;
+  cursor:pointer;
+  background-color:white;
+  color: black;
+  box-shadow: 0 8px 6px -6px black;
+  box-shadow: 8px 8px 0px 0px #eabe60;
+}
+.modal_container{
+  max-width:600px;
+  margin: 20px auto;
+  padding:10px;
+  background-color:white;
+  color: black;
+  box-shadow: 0 8px 6px -6px black;
+  box-shadow: 10px 10px 0px 0px #eabe60;
+  transition: all 1s;
+  opacity:0;
+  position: relative;
+  top: -60px;
+}
+.success_modal.visible .modal_container{
+  opacity:1;
+  top:0;
+}
+.modal_container h2, .modal_container h3{
+  font-family: "Julius Sans One";
 }
 
 /* ---------------------------------------- */
