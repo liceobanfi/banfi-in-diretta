@@ -306,7 +306,7 @@ ul.dates_grid li.disabled::after{
 .error_modal{
   position:absolute;
   width:100%;
-  height: 80px;
+  min-height: 80px;
   top:0;
   left:0;
   background-color: white;

@@ -18,11 +18,10 @@ if(isset($_GET['message'])){
       $formError = "<p>non è stato possibile completare l'operazione per via di un errore interno.</p>";
       break;
     case 'form-selection-not-found':
-      $formEror = "<p>La data selezionata non è piu valida.</p>";
+      $formError = "<p>La data selezionata non è piu valida.</p>";
       break;
     case 'form-selection-full':
-      $formEror = "<p>La data selezionata non è piu disponibile. Potrebbe essere scaduta, o esser stata prenotata da un altro
-        utente nei minuti precedenti</p>";
+      $formError = "<p>La data selezionata non è piu disponibile. Potrebbe essere scaduta, o esser stata prenotata da un altro utente nei minuti precedenti</p>";
       break;
     case 'duplicated-form':
       $formError = "<p>Hai già prenotato questa data</p>";
