@@ -16,8 +16,15 @@ body{
   /* #06162f */
 }
 
-h1{
-  padding-left: 40px;
+.container {
+  max-width:700px;
+  /* height:100%; */
+  margin: 20px auto;
+  margin-top:0;
+  margin-bottom:0;
+  padding: 10px;
+}
+h2{
   font-family: "Julius Sans One";
 }
 a{
