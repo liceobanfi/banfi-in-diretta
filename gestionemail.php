@@ -2,22 +2,23 @@
 require_once 'app/classes/ConnectDb.php';
 require_once 'app/classes/Mailer.php';
 
-$instance = ConnectDb::getInstance();
-$pdo = $instance->getConnection();
-
-$stmt = $pdo->prepare( 'SELECT Secret FROM accounts WHERE Mail = :mail');
-$stmt->execute(['mail'=> $_POST['email'] ]);
-$result = $stmt->rowCount();
-if($result){
-  //get secret
-  $row = $stmt->fetch();
-  $secret = $row['Secret'];
-  $mailData = [
-    'secret' => $secret
-  ];
-  sendTemplate($_POST['email'], 'ACCOUNT_URL', $mailData);
+if(isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+  $instance = ConnectDb::getInstance();
+  $pdo = $instance->getConnection();
+  
+  $stmt = $pdo->prepare( 'SELECT Secret FROM accounts WHERE Mail = :mail');
+  $stmt->execute(['mail'=> $_POST['email'] ]);
+  $result = $stmt->rowCount();
+  if($result){
+    //get secret
+    $row = $stmt->fetch();
+    $secret = $row['Secret'];
+    $mailData = [
+      'secret' => $secret
+    ];
+    sendTemplate($_POST['email'], 'ACCOUNT_URL', $mailData);
+  }
 }
-
 ?>
 <!DOCTYPE html>
 <html>
