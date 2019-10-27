@@ -13,12 +13,19 @@ if(isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     //get secret
     $row = $stmt->fetch();
     $secret = $row['Secret'];
+
+    //redirect to the reservation page associated to the given mail.
+    //WARNING: this is an usafe privacy data leak. fix soon.
+    header("location: prenotazioni.php?id=$secret");
+    die();
     $mailData = [
       'secret' => $secret
     ];
-    sendTemplate($_POST['email'], 'ACCOUNT_URL', $mailData);
+    /* sendTemplate($_POST['email'], 'ACCOUNT_URL', $mailData); */
   }
 }
+header("location: prenotazioni.php?id=404");
+die();
 ?>
 <!DOCTYPE html>
 <html>
