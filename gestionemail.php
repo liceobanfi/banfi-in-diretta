@@ -34,6 +34,7 @@ if(isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     <div class="container">
       <h2>controlla la tua casella di posta elettronica.</h2>
       <p>Per modificare o visualizzare tutte le prenotazioni effettuate, visita il link che è stato inviato al tuo indirizzo email. Se non hai ricevuto niente, controlla la cartella di spam e tieni a mente che la mail potrebbe impiegare alcuni minuti ad arrivare.</p>
+      <a href="index.php" class="btn">indietro</a>
     </div>
   </body>
 </html>
