@@ -13,40 +13,32 @@ $formSuccess = "";
 $msg = "";
 if(isset($_GET['message'])){
   $message = htmlspecialchars($_GET['message']);
-  switch($message){
-    case 'form-data-error':
-      $formError = "<p>non è stato possibile completare l'operazione per via di un errore interno.</p>";
-      break;
-    case 'form-selection-not-found':
-      $formError = "<p>La data selezionata non è piu valida.</p>";
-      break;
-    case 'form-selection-full':
-      $formError = "<p>La data selezionata non è piu disponibile. Potrebbe essere scaduta, o esser stata prenotata da un altro utente nei minuti precedenti</p>";
-      break;
-    case 'duplicated-form':
-      $formError = "<p>Hai già prenotato questa data</p>";
-      break;
-    case 'registration-failed':
-      $formError = "<p>non è stato possibile completare l'operazione per via di un errore interno.</p>";
-      break;
-    case 'success':
-      if(isset($_GET['dateid'])){
-        //get the configured success message
-        $stmt = $pdo->query('SELECT MessaggioRegistrazioneCompletata from `configurazione`');
+  $errorMessageTemplates = [
+    'form-data-error' => " non è stato possibile completare l'operazione per via di un errore interno. ",
+    'form-selection-not-found' => " La data selezionata non è piu valida. ",
+    'form-selection-full' => " La data selezionata non è piu disponibile. Potrebbe essere scaduta, o esser stata prenotata da un altro utente nei minuti precedenti ",
+    'duplicated-form' => " Hai già prenotato questa data ",
+    'registration-failed' => " non è stato possibile completare l'operazione per via di un errore interno. "
+  ];
+  if(array_key_exists($message, $errorMessageTemplates)){
+    $formError = $errorMessageTemplates[$message];
+  }else{
+    if(isset($_GET['dateid'])){
+      //get the configured success message
+      $stmt = $pdo->query('SELECT MessaggioRegistrazioneCompletata from `configurazione`');
+      $row = $stmt->fetch();
+      $msg = $row['MessaggioRegistrazioneCompletata'];
+      //get the correct data to visualize instead of the data id
+      $formSuccess = "<p>corso: -- data: --</p>";
+      $stmt = $pdo->prepare('SELECT * FROM date_prenotabili WHERE ID = ?');
+      $stmt->execute([$_GET['dateid']]);
+      $affectedRows = $stmt->rowCount();
+      if($affectedRows > 0){
         $row = $stmt->fetch();
-        $msg = $row['MessaggioRegistrazioneCompletata'];
-        //get the correct data to visualize instead of the data id
-        $formSuccess = "<p>corso: -- data: --</p>";
-        $stmt = $pdo->prepare('SELECT * FROM date_prenotabili WHERE ID = ?');
-        $stmt->execute([$_GET['dateid']]);
-        $affectedRows = $stmt->rowCount();
-        if($affectedRows > 0){
-          $row = $stmt->fetch();
-          $mese = $mesi[$row['Mese']-1];
-          $formSuccess = "<p>{$row['Corso']} {$row['Data']} $mese </p>";
-        }
-
+        $mese = $mesi[$row['Mese']-1];
+        $formSuccess = "<p>{$row['Corso']} {$row['Data']} $mese </p>";
       }
+    }
   }
 }
 
@@ -242,7 +234,9 @@ if(!$enpty){
     </div>
 
     <div class="error_modal">
-      <?php echo $formError; ?>
+      <p>
+        <?php echo $formError; ?>
+      </p>
       <a class="close">X</a>
     </div>
 

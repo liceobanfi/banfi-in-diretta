@@ -18,6 +18,16 @@ function main(){
   // const ael = (s, type, callBack) => $(s).addEventListener(type, callBack)
   // const bt = (s, callBack) => ael(s, 'click', callBack)
   // const sleep = time => new Promise( resolve => setTimeout(resolve, time))
+  
+  let errorBoxTimer = null;
+  function errorMessageBox(error){
+    if(error) $('.error_modal p').innerText = error
+    $('.error_modal').classList.add('visible');
+    if(!errorBoxTimer) errorBoxTimer = setTimeout(e =>{
+      $('.error_modal').classList.remove('visible')
+      errorBoxTimer = null
+    },6000)
+  }
 
   const selection = {
     course: null,
@@ -178,11 +188,11 @@ function main(){
     const mailValid = isMail($(".form_box input[name=email]").value)
 
     if(!formValid){
-      alert("completare tutti i campi")
+      errorMessageBox("completare tutti i campi")
     }else if(!mailValid){
-      alert("indirizzo email non valido")
+      errorMessageBox("indirizzo email non valido")
     }else if(!selection.course || !selection.date){
-      alert("selezionare una data");
+      errorMessageBox("selezionare una data");
     }else{
       const course = selection.course.firstChild.innerText
       const number = selection.date.firstChild.innerText
@@ -207,7 +217,7 @@ function main(){
   gid("js_conferm_btn").addEventListener('click', e =>{
     const mailValid = isMail($(".mail_box input[name=email]").value)
     if(!mailValid){
-      alert("inserisci una mail valida")
+      errorMessageBox("inserisci una mail valida")
     }else{
       let email = $(".mail_box input[name=email]").value
       post('gestionemail.php', {email})
