@@ -44,7 +44,7 @@ HTML;
 HTML;
   }
 
-  echo "mail che dovrebbe essere inviata:<br>" . $mailBody;
+  /* echo "mail che dovrebbe essere inviata:<br>" . $mailBody; */
 
   /* $mail->addAddress($mail); */
   /* $mail->isHTML(true); */
