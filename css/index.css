@@ -82,7 +82,7 @@ body{
 }
 
 .calendar_outer_line h2{
-  padding-left: 40px;
+  padding-left: 10px;
   font-family: "Julius Sans One";
 }
 
@@ -90,7 +90,7 @@ body{
 ul.course_grid{
   display:flex;
   flex-wrap: wrap;
-  padding-left:30px;
+  padding-left:0px;
 }
 ul.course_grid li{
   cursor: pointer;
@@ -118,7 +118,7 @@ ul.dates_grid{
   display:flex;
   flex-wrap: wrap;
   /* default ul behavior */
-  padding-left: 30px;
+  padding-left: 0px;
 }
 ul.dates_grid.hidden{
   display: none;
