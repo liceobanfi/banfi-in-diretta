@@ -115,7 +115,7 @@ if($result){
   $secret = $row['Secret'];
 }else{
   //create secret, create db record
-  $bytes = random_bytes(9);
+  $bytes = random_bytes(40);
   $secret = "BNF" . base64_encode($bytes);
 
   $stmt = $pdo->prepare( 'INSERT INTO accounts (Mail, Secret) VALUES (:mail, :secret)');

@@ -35,5 +35,5 @@ if(isset($_POST['deleteid']) && filter_var($_POST['deleteid'], FILTER_VALIDATE_I
   }
   /* echo $affectedRows; */
 }
-
+$secret = urlencode($secret);
 header("location: prenotazioni.php?id=$secret&success=$affectedRows");

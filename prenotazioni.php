@@ -1,7 +1,7 @@
 <?php
 require_once 'app/classes/ConnectDb.php';
 
-if(!isset($_GET['id']) || strlen($_GET['id']) > 60){
+if(!isset($_GET['id']) || strlen($_GET['id']) > 80){
   $page = "error";
 }else{
   $page = "ok";
