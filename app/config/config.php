@@ -18,6 +18,9 @@ return array(
   'smtpHost' => '',
   'smtpUsername' => '',
   'smtpPassword' => '',
+
+  'mailFrom' => '',
+  'mailName' => '',
   //MISC CONFIGURATION
   'appPath' => 'http://localhost/liceo_banfi/openday/',
   'parentWebsite' => 'https://www.liceobanfi.edu.it',

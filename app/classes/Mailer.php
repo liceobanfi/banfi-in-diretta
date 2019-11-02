@@ -2,21 +2,29 @@
 require_once dirname(__FILE__).'/../libraries/PHPMailer/PHPMailer.php';
 require_once dirname(__FILE__).'/../libraries/PHPMailer/SMTP.php';
 require_once dirname(__FILE__).'/../libraries/PHPMailer/Exception.php';
+$config = require dirname(__FILE__).'/../config/config.php';
 
 $mail = new PHPMailer\PHPMailer\PHPMailer();
 
-$mail->SMTPDebug = 2;
-$mail->isSMTP();
-$mail->Host       = 'smtp.gfg.com;';
-$mail->SMTPAuth   = true;
-$mail->Username   = 'user@gfg.com';
-$mail->Password   = 'password';
-$mail->SMTPSecure = 'tls';
-$mail->Port       = 587;
-$mail->setFrom('from@gfg.com', 'Name');
+/* $mail->SMTPDebug = 2; */
+/* $mail->isSMTP(); */
+/* $mail->Host       = 'smtp.gmail.com'; */
+/* $mail->Username   = 'banfi.in.diretta@gmail.com'; */
+/* $mail->setFrom('banfi.in.diretta@gmail.com', 'noreply.banfiindiretta'); */
+/* $mail->Password   = ''; */
+//this may be the cause of some issues, depending on the php environment
+//https://stackoverflow.com/questions/23326934/phpmailer-smtp-connect-failed
+/* $mail->SMTPSecure = 'tls'; */
+/* $mail->SMTPAuth   = true; */
+/* $mail->Port       = 587; */
+$mail->CharSet = 'UTF-8';
+if($config['smtpHost']) $mail->Host = $config['smtpHost'];
+if($config['smtpUsername']) $mail->Username = $config['smtpUsername'];
+if($config['smtpPassword']) $mail->Password = $config['smtpPassword'];
+if($config['mailFrom']) $mail->setFrom($config['mailFrom'], $config['mailName']);
 
-function sendTemplate($mail, $template, $data){
-  $config = require dirname(__FILE__).'/../config/config.php';
+function sendTemplate($mailAddress, $template, $data){
+  global $mail, $config;
 
   $mailBody = " test ";
   switch ($template){
@@ -46,10 +54,10 @@ HTML;
 
   /* echo "mail che dovrebbe essere inviata:<br>" . $mailBody; */
 
-  /* $mail->addAddress($mail); */
-  /* $mail->isHTML(true); */
-  /* $mail->Subject = 'Subject'; */
-  /* $mail->Body    = 'HTML message body in <b>bold</b> '; */
-  /* $mail->AltBody = 'Body in plain text for non-HTML mail clients'; */
-  /* $mail->send(); */
+  $mail->addAddress($mailAddress);
+  $mail->isHTML(true);
+  $mail->Subject = 'Subject';
+  $mail->Body    = 'HTML message body in <b>bold</b> ';
+  $mail->AltBody = 'Body in plain text for non-HTML mail clients';
+  $mail->send();
 }
