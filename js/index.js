@@ -8,6 +8,26 @@ if( document.readyState !== 'loading' ) {
     });
 }
 
+//title font lazy loading
+// var font = new FontFace("Awesome Font", "url(https://fonts.googleapis.com/css?family=Libre+Franklin:600)", {
+//   style: 'normal', unicodeRange: 'U+000-5FF', weight: '400'
+// });
+
+// // don't wait for the render tree, initiate an immediate fetch!
+// font.load().then(function() {
+//   // apply the font (which may re-render text and cause a page reflow)
+//   // after the font has finished downloading
+//   document.fonts.add(font);
+//   document.body.style.fontFamily = "Awesome Font, serif";
+
+//   // OR... by default the content is hidden, 
+//   // and it's rendered after the font is available
+//   var content = document.getElementById("content");
+//   content.style.visibility = "visible";
+
+//   // OR... apply your own render strategy here... 
+// });
+
 
 function main(){
 
