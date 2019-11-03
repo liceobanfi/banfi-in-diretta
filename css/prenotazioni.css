@@ -24,6 +24,10 @@ body{
   margin-top:0;
   margin-bottom:0;
   padding: 10px;
+  /* footer alignment trick */
+  /*note: 105 is the footer height (50px), plus a margin */
+  /* https://stackoverflow.com/a/36160277 */
+  min-height: calc(100vh - 105px);
 }
 h2{
   font-family: "Julius Sans One";
@@ -92,6 +96,22 @@ tr:last-child td{
   color: black;
   text-decoration:none;
   border-bottom: 2px solid #eabe60;
+}
+
+
+/* ---------------------------------------- */
+/*                  FOOTER                  */
+/* ---------------------------------------- */
+.footer{
+  color:rgba(255,255,255,0.3);
+  text-align:center;
+  padding: 5px;
+  height: 50px;
+}
+.footer p{
+}
+.footer a{
+  color:rgba(255,255,255,0.2);
 }
 
 

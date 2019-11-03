@@ -233,6 +233,15 @@ if(!$enpty){
       </div>
     </div>
 
+
+    <div class="footer">
+      <p>&copy; 2018-<?php echo date("Y"); ?> <br><a href="https://github.com/liceobanfi/banfi-in-diretta">credits</a> - 
+      <a href="<?php
+        $config = require dirname(__FILE__).'/app/config/config.php';
+        echo $config['parentWebsite'] . "/informativa-il-trattamento-dei-dati-personali";
+      ?>">privacy</a></p>
+    </div>
+
     <div class="error_modal">
       <p>
         <?php echo $formError; ?>

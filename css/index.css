@@ -236,7 +236,7 @@ ul.dates_grid li.disabled::after{
 
 .form_outer_line{
   width: 350px;
-  min-height: 400px;
+  min-height: 440px;
   background-color: #f6a1a4;
   background-color: #eabe60;
   background-color: white;
@@ -298,6 +298,22 @@ ul.dates_grid li.disabled::after{
   text-align:center;
 }
 
+
+/* ---------------------------------------- */
+/*                  FOOTER                  */
+/* ---------------------------------------- */
+.footer{
+  color:rgba(255,255,255,0.3);
+  text-align:center;
+  padding: 5px;
+  margin-top:90px;
+  height: 50px;
+}
+.footer p{
+}
+.footer a{
+  color:rgba(255,255,255,0.2);
+}
 
 
 /* ---------------------------------------- */

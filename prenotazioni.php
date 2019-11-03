@@ -89,6 +89,13 @@ if(!isset($_GET['id']) || strlen($_GET['id']) > 80){
       
       <?php endif; ?>
     </div>
+    <div class="footer">
+      <p>&copy; 2018-<?php echo date("Y"); ?> <br><a href="https://github.com/liceobanfi/banfi-in-diretta">credits</a> - 
+      <a href="<?php
+        $config = require dirname(__FILE__).'/app/config/config.php';
+        echo $config['parentWebsite'] . "/informativa-il-trattamento-dei-dati-personali";
+      ?>">privacy</a></p>
+    </div>
     <noscript>
       <div class="noscript">
         <h1>per utilizzare questo sito é necessario javascript</h1>
