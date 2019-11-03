@@ -124,15 +124,19 @@ if(!$enpty){
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <script async type="text/javascript" src="./js/index.js" ></script>
     <link rel="stylesheet" href="./css/index.css" >
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto|Libre+Franklin:600&display=swap" rel="stylesheet"> 
   </head>
   <body>
+    <div class="hero">
+      <h1><span>BANFI</span><span>IN</span><span>DIRETTA</span></h1>
+      <div class="description_container">
+        <p><?php echo $descrizione;?></p>
+      </div>
+      <a href="#prenota" class="btn">prenota un giorno</a>
+    </div>
     <div class="container">
-<!-- temporaneo TODO: migliorare design descrizione, e aggiungere titolo in css grid -->
-<p><?php echo $descrizione;?></p>
-      <br>
 
-      <div class="calendar_container">
+      <div id="prenota" class="calendar_container">
         <div data-year="<?php echo($annoCorrente);?>" class="calendar_outer_line">
           <h2>seleziona un corso</h2>
           <?php echo $courseOut;?>

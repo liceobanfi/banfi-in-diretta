@@ -16,6 +16,9 @@ body{
   color: white;
   /* #06162f */
 }
+html{
+  scroll-behavior: smooth;
+}
 /* @import url(https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto); */
 
 
@@ -47,6 +50,88 @@ body{
   margin-top: 80px;
   display:flex;
 }
+
+
+/* ---------------------------------------- */
+/*                  HERO                    */
+/* ---------------------------------------- */
+
+
+.hero{
+  width:100%;
+  min-height: 100%;
+  /* transition: all 0.5s; */
+  display:flex;
+  text-align:center;
+  align-items:center;
+  flex-direction:column;
+  justify-content:center;
+  /* background-color: #111; */
+  /* background-color: #061e3a; */
+}
+
+.hero .description_container{
+  max-width: 300px;
+}
+
+.hero h1{
+  font-family: 'Libre Franklin', sans-serif;
+  list-style: none;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  font-size: 28px;
+}
+
+.hero a.btn{
+  color:white;
+  text-decoration:none;
+  cursor: pointer;
+  padding: 10px;
+  margin:1px;
+  list-style-type: none;
+  height: 40px;
+  border:1px solid rgba(255,255,255,0.3);
+  text-align:center;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing:border-box;
+  box-shadow: 0 8px 6px -6px black;
+  max-width: 150px;
+  margin-top:30px;
+}
+/* default mobile aspect */
+@media screen and (max-height: 600px) {
+  .hero{
+    justify-content:flex-start;
+  }
+}
+.hero h1{
+  font-size: 54px;
+}
+.hero h1 span:nth-child(1){
+  display: table;
+}
+.hero h1 span:nth-child(2){
+  display: table;
+  color: yellow;
+  letter-spacing: 5px;
+  transform: rotate(00deg);
+  /* transform-origin: left top; */
+}
+.hero h1 span:nth-child(3){
+  /* transform: rotate(90deg); */
+}
+
+
+@media screen and (min-width: 768px) {
+  .hero h1{
+    /* font-size: 54px; */
+  }
+}
+/* medium size aspect */
 
 
 /* ---------------------------------------- */
@@ -320,7 +405,7 @@ ul.dates_grid li.disabled::after{
 /*                 MODALS                   */
 /* ---------------------------------------- */
 .error_modal{
-  position:absolute;
+  position:fixed;
   width:100%;
   min-height: 80px;
   top:0;
@@ -328,6 +413,7 @@ ul.dates_grid li.disabled::after{
   background-color: white;
   background-color: #eabe60;
   background-color: #f6a1a4;
+  background-color: pink;
   color:black;
   text-align:center;
   display:flex;
