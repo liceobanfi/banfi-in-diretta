@@ -51,14 +51,14 @@ if(!isset($_GET['id']) || strlen($_GET['id']) > 80){
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <script async type="text/javascript" src="./js/prenotazioni.js" ></script>
     <link rel="stylesheet" href="./css/prenotazioni.css" >
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto|Libre+Franklin:600&text=BANFIDRET&display=swap" rel="stylesheet"> 
   </head>
   <body>
     <div class="container">
-      <h1>banfi <span class="in">in</span> diretta</h1>
+      <h1 class="hero_title">banfi<span>in</span>diretta</h1>
       <?php if($page=="error"): ?>
-      <h2>pagina non trovata</h2>
-      <p>nessuna registrazione trovata per questo id</p>
+      <h2>nessuna prenotazione trovata</h2>
+      <br>
       <div class="bottom-container">
         <a href="index.php" class="btn">aggiungi una prenotazione</a>
         <a href="<?php echo $homepage; ?>" class="link" >homepage</a>
