@@ -19,7 +19,7 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 if($error) {
   /* header("HTTP/1.0 400 invalid data"); */
   /* echo $error; */
-  header("Location: index.php?message=form-data-error");
+  header("Location: index.php?message=form-data-error#prenota");
   die();
 }
 
@@ -44,7 +44,7 @@ $stmt->execute( [
 $row = $stmt->fetch();
 
 if(!$row){
-  header("Location: index.php?message=form-selection-not-found");
+  header("Location: index.php?message=form-selection-not-found#prenota");
   die();
 }
 $giorniDisponibili = $row['GiorniDisponibili'];
@@ -52,7 +52,7 @@ $dateID = $row['ID'];
 
 //check if the course is available
 if($giorniDisponibili < 1){
-  header("Location: index.php?message=form-selection-full");
+  header("Location: index.php?message=form-selection-full#prenota");
   die();
 }
 
@@ -70,7 +70,7 @@ $stmt->execute( [
 ]);
 $affectedRows = $stmt->rowCount();
 if($affectedRows > 0){
-  header("Location: index.php?message=duplicated-form");
+  header("Location: index.php?message=duplicated-form#prenota");
   die();
 }
 
@@ -101,7 +101,7 @@ $success = $stmt->execute( [
   $userAgent
 ]);
 if(!$success){
-  header("Location: index.php?message=registration-failed");
+  header("Location: index.php?message=registration-failed#prenota");
   die();
 }
 
@@ -160,5 +160,5 @@ $mailData = [
 ];
 sendTemplate($_POST['email'], 'REGISTRATION_SUCCESS', $mailData);
 
-header("Location: index.php?message=success&dateid=$dateID");
+header("Location: index.php?message=success&dateid=$dateID#prenota");
 die();

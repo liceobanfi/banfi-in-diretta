@@ -470,7 +470,7 @@ ul.dates_grid li.disabled::after{
   z-index: 420;
   width:0;
   height:0;
-  position:absolute;
+  position:fixed;
   top:0;
   left:0;
   display: flex;
