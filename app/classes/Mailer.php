@@ -6,22 +6,23 @@ $config = require dirname(__FILE__).'/../config/config.php';
 
 $mail = new PHPMailer\PHPMailer\PHPMailer();
 
+$mail->CharSet = 'UTF-8';
+if($config['smtpHost']) $mail->Host = $config['smtpHost'];
+if($config['smtpUsername']) $mail->Username = $config['smtpUsername'];
+if($config['smtpPassword']) $mail->Password = $config['smtpPassword'];
+if($config['mailFrom']) $mail->setFrom($config['mailFrom'], $config['mailName']);
+
 /* $mail->SMTPDebug = 2; */
 /* $mail->isSMTP(); */
 /* $mail->Host       = 'smtp.gmail.com'; */
 /* $mail->Username   = 'banfi.in.diretta@gmail.com'; */
-/* $mail->setFrom('banfi.in.diretta@gmail.com', 'noreply.banfiindiretta'); */
+/* $mail->setFrom('banfi.in.diretta@gmail.com', 'banfiindiretta'); */
 /* $mail->Password   = ''; */
 //this may be the cause of some issues, depending on the php environment
 //https://stackoverflow.com/questions/23326934/phpmailer-smtp-connect-failed
 /* $mail->SMTPSecure = 'tls'; */
 /* $mail->SMTPAuth   = true; */
 /* $mail->Port       = 587; */
-$mail->CharSet = 'UTF-8';
-if($config['smtpHost']) $mail->Host = $config['smtpHost'];
-if($config['smtpUsername']) $mail->Username = $config['smtpUsername'];
-if($config['smtpPassword']) $mail->Password = $config['smtpPassword'];
-if($config['mailFrom']) $mail->setFrom($config['mailFrom'], $config['mailName']);
 
 function sendTemplate($mailAddress, $template, $data){
   global $mail, $config;
